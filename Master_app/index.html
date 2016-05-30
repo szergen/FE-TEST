@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Front End test - Euro 16 Teams</title>
+    <!-- angular libs -->
+    <script src="lib/angular/angular.min.js"></script>
+    
+    <!-- js scripts -->
+    <script src="js/controller.js"></script>
+    <!-- styles -->
+    <link rel="stylesheet" href="css/lightbox.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="images/logo.png" alt="logo" title="logo">
+        <h2>Euro 16 Teams</h1>
+    </header>
+    <!-- App -->
+    <main ng-app="euroApp" ng-controller = "EuroController">
+        <div class="container">
+            <!-- Filters -->
+            <section class="filters">
+                <span>Sort by:</span>
+                
+                <label>
+                    <input ng-model="teamOrder" type="radio" name="myfilter" value="rank" checked> Most Favoured 
+                </label>   
+                <label>
+                    <input ng-model="teamOrder" type="radio" name="myfilter" value="group"> Group
+                </label>
+                <label>
+                    <input ng-model="teamOrder" type="radio" name="myfilter" value="name"> Name    
+                </label> <br><br>
+                <input ng-model="query.name" type="text" placeholder="Search team">
+            </section>
+            <!-- Filters End-->
+            <!-- Cards-->
+            <section class="content">
+                <!-- cards retrieved from -->
+                <div class="card" ng-repeat="item in teams | filter: query | orderBy: teamOrder">
+                    <!-- Lightbox-->
+                    <a href="images/{{item.rank}}.jpg" data-lightbox="image-{{item.rank}}" data-title="{{item.name}}">
+                        <img class="thumb" ng-src="images/{{item.rank}}_thumb.jpg" alt="{{item.name}}">
+                        <div class="info">
+                            <h4 class="team">{{item.name}}<img src="images/expand_icon.png"></h4>
+                            <span class="group">Group: {{item.group}}</span>
+                            <span class="rank">Rank: {{item.rank}}</span>
+                            <div class="details">Details:</div>  
+                            <p class="description">
+                                    {{item.details}}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            <!-- Cards End-->
+        </div>
+    </main>
+     <script src="js/lightbox-plus-jquery.min.js"></script>
+</body>
+</html>
